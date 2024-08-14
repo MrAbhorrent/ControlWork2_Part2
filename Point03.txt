@@ -1,0 +1,174 @@
+###############################################################################
+# Подключить дополнительный репозиторий MySQL.
+# Установить любой пакет из этого репозитория.
+###############################################################################
+#
+
+# Для подключения репозитория воспользуемся инструкцией:
+# https://dev.mysql.com/doc/refman/8.2/en/linux-installation-apt-repo.html#apt-repo-setup
+
+# Репозиторий конфигурируем установкой deb-пакета
+botsman@ubuntu2004:~/GB/ControlWork2$ mkdir Packages
+botsman@ubuntu2004:~/GB/ControlWork2$ cd ./Packages/
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+--2024-02-10 14:27:39--  https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+Resolving dev.mysql.com (dev.mysql.com)... 23.211.74.232, 2001:2030:21:19e::2e31, 2001:2030:21:1a9::2e31
+Connecting to dev.mysql.com (dev.mysql.com)|23.211.74.232|:443... connected.
+HTTP request sent, awaiting response... 302 Moved Temporarily
+Location: https://repo.mysql.com//mysql-apt-config_0.8.29-1_all.deb [following]
+--2024-02-10 14:27:40--  https://repo.mysql.com//mysql-apt-config_0.8.29-1_all.deb
+Resolving repo.mysql.com (repo.mysql.com)... 23.192.89.203, 2a02:26f0:d200:889::1d68, 2a02:26f0:d200:888::1d68
+Connecting to repo.mysql.com (repo.mysql.com)|23.192.89.203|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 18172 (18K) [application/x-debian-package]
+Saving to: ‘mysql-apt-config_0.8.29-1_all.deb’
+
+mysql-apt-config_0.8.29-1_all 100%[==============================================>]  17,75K  --.-KB/s    in 0s
+
+2024-02-10 14:27:40 (130 MB/s) - ‘mysql-apt-config_0.8.29-1_all.deb’ saved [18172/18172]
+
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ ll
+total 28
+drwxrwxr-x 2 botsman botsman  4096 фев 10 14:27 ./
+drwxrwxr-x 4 botsman botsman  4096 фев 10 14:23 ../
+-rw-rw-r-- 1 botsman botsman 18172 дек 15 10:20 mysql-apt-config_0.8.29-1_all.deb
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ sudo dpkg -i ./mysql-apt-config_0.8.29-1_all.deb
+Selecting previously unselected package mysql-apt-config.
+(Reading database ... 219498 files and directories currently installed.)
+Preparing to unpack .../mysql-apt-config_0.8.29-1_all.deb ...
+Unpacking mysql-apt-config (0.8.29-1) ...
+Setting up mysql-apt-config (0.8.29-1) ...
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$
+
+
+# Обновим инфу о пакетах перед установкой новой программы
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ sudo apt update
+Hit:1 http://ru.archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://ru.archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://security.ubuntu.com/ubuntu focal-security InRelease
+Hit:4 http://ru.archive.ubuntu.com/ubuntu focal-backports InRelease
+Get:5 http://repo.mysql.com/apt/ubuntu focal InRelease [12,8 kB]
+Hit:6 https://download.docker.com/linux/ubuntu focal InRelease
+Get:7 http://repo.mysql.com/apt/ubuntu focal/mysql-8.0 Sources [963 B]
+Get:8 http://repo.mysql.com/apt/ubuntu focal/mysql-apt-config amd64 Packages [566 B]
+Get:9 http://repo.mysql.com/apt/ubuntu focal/mysql-apt-config i386 Packages [566 B]
+Get:10 http://repo.mysql.com/apt/ubuntu focal/mysql-8.0 amd64 Packages [10,7 kB]
+Get:11 http://repo.mysql.com/apt/ubuntu focal/mysql-tools amd64 Packages [3 848 B]
+Fetched 29,5 kB in 2s (18,2 kB/s)
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ sudo apt upgrade
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Calculating upgrade... Done
+The following packages were automatically installed and are no longer required:
+  linux-headers-5.15.0-91-generic linux-hwe-5.15-headers-5.15.0-91 linux-image-5.15.0-91-generic
+  linux-modules-5.15.0-91-generic linux-modules-extra-5.15.0-91-generic
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  mysql-community-client-plugins
+The following packages will be upgraded:
+  libmysqlclient21 mysql-common
+2 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2 742 kB of archives.
+After this operation, 20,4 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://repo.mysql.com/apt/ubuntu focal/mysql-8.0 amd64 mysql-common amd64 8.0.36-1ubuntu20.04 [68,5 kB]
+Get:2 http://repo.mysql.com/apt/ubuntu focal/mysql-8.0 amd64 mysql-community-client-plugins amd64 8.0.36-1ubuntu20.04 [1 315 kB]
+Get:3 http://repo.mysql.com/apt/ubuntu focal/mysql-8.0 amd64 libmysqlclient21 amd64 8.0.36-1ubuntu20.04 [1 358 kB]
+Fetched 2 742 kB in 1s (2 613 kB/s)
+(Reading database ... 219503 files and directories currently installed.)
+Preparing to unpack .../mysql-common_8.0.36-1ubuntu20.04_amd64.deb ...
+Unpacking mysql-common (8.0.36-1ubuntu20.04) over (5.8+1.0.5ubuntu2) ...
+Selecting previously unselected package mysql-community-client-plugins.
+Preparing to unpack .../mysql-community-client-plugins_8.0.36-1ubuntu20.04_amd64.deb ...
+Unpacking mysql-community-client-plugins (8.0.36-1ubuntu20.04) ...
+Preparing to unpack .../libmysqlclient21_8.0.36-1ubuntu20.04_amd64.deb ...
+Unpacking libmysqlclient21:amd64 (8.0.36-1ubuntu20.04) over (8.0.36-0ubuntu0.20.04.1) ...
+Setting up mysql-common (8.0.36-1ubuntu20.04) ...
+Installing new version of config file /etc/mysql/conf.d/mysql.cnf ...
+Installing new version of config file /etc/mysql/my.cnf.fallback ...
+Setting up mysql-community-client-plugins (8.0.36-1ubuntu20.04) ...
+Setting up libmysqlclient21:amd64 (8.0.36-1ubuntu20.04) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.14) ...
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$
+
+
+
+# Установим MySQL Workbench
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ wget http://repo.mysql.com/apt/ubuntu/pool/mysql-tools/m/mysql-workbench-community/mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb
+--2024-02-10 14:39:40--  http://repo.mysql.com/apt/ubuntu/pool/mysql-tools/m/mysql-workbench-community/mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb
+Resolving repo.mysql.com (repo.mysql.com)... 23.192.89.203, 2a02:26f0:d200:888::1d68, 2a02:26f0:d200:889::1d68
+Connecting to repo.mysql.com (repo.mysql.com)|23.192.89.203|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 23042296 (22M) [application/x-debian-package]
+Saving to: ‘mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb’
+
+mysql-workbench-community_8.0 100%[==============================================>]  21,97M  8,64MB/s    in 2,5s
+
+2024-02-10 14:39:43 (8,64 MB/s) - ‘mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb’ saved [23042296/23042296]
+
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$ sudo apt install ./mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Note, selecting 'mysql-workbench-community' instead of './mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb'
+The following packages were automatically installed and are no longer required:
+  linux-headers-5.15.0-91-generic linux-hwe-5.15-headers-5.15.0-91 linux-image-5.15.0-91-generic
+  linux-modules-5.15.0-91-generic linux-modules-extra-5.15.0-91-generic
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  libpcrecpp0v5 libpython2.7 libpython2.7-minimal libpython2.7-stdlib libzip5
+Suggested packages:
+  libproj-dev
+The following NEW packages will be installed:
+  libpcrecpp0v5 libpython2.7 libpython2.7-minimal libpython2.7-stdlib libzip5 mysql-workbench-community
+0 upgraded, 6 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3 323 kB/26,4 MB of archives.
+After this operation, 142 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://ru.archive.ubuntu.com/ubuntu focal-updates/main amd64 libpcrecpp0v5 amd64 2:8.39-12ubuntu0.1 [15,5 kB]
+Get:2 /home/botsman/GB/ControlWork2/Packages/mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb mysql-workbench-community amd64 8.0.20-1ubuntu20.04 [23,0 MB]
+Get:3 http://ru.archive.ubuntu.com/ubuntu focal-updates/universe amd64 libpython2.7-minimal amd64 2.7.18-1~20.04.3 [336 kB]
+Get:4 http://ru.archive.ubuntu.com/ubuntu focal-updates/universe amd64 libpython2.7-stdlib amd64 2.7.18-1~20.04.3 [1 888 kB]
+Get:5 http://ru.archive.ubuntu.com/ubuntu focal-updates/universe amd64 libpython2.7 amd64 2.7.18-1~20.04.3 [1 037 kB]
+Get:6 http://ru.archive.ubuntu.com/ubuntu focal/universe amd64 libzip5 amd64 1.5.1-0ubuntu1 [46,7 kB]
+Fetched 3 323 kB in 1s (5 441 kB/s)
+Selecting previously unselected package libpcrecpp0v5:amd64.
+(Reading database ... 219518 files and directories currently installed.)
+Preparing to unpack .../0-libpcrecpp0v5_2%3a8.39-12ubuntu0.1_amd64.deb ...
+Unpacking libpcrecpp0v5:amd64 (2:8.39-12ubuntu0.1) ...
+Selecting previously unselected package libpython2.7-minimal:amd64.
+Preparing to unpack .../1-libpython2.7-minimal_2.7.18-1~20.04.3_amd64.deb ...
+Unpacking libpython2.7-minimal:amd64 (2.7.18-1~20.04.3) ...
+Selecting previously unselected package libpython2.7-stdlib:amd64.
+Preparing to unpack .../2-libpython2.7-stdlib_2.7.18-1~20.04.3_amd64.deb ...
+Unpacking libpython2.7-stdlib:amd64 (2.7.18-1~20.04.3) ...
+Selecting previously unselected package libpython2.7:amd64.
+Preparing to unpack .../3-libpython2.7_2.7.18-1~20.04.3_amd64.deb ...
+Unpacking libpython2.7:amd64 (2.7.18-1~20.04.3) ...
+Selecting previously unselected package libzip5:amd64.
+Preparing to unpack .../4-libzip5_1.5.1-0ubuntu1_amd64.deb ...
+Unpacking libzip5:amd64 (1.5.1-0ubuntu1) ...
+Selecting previously unselected package mysql-workbench-community.
+Preparing to unpack .../5-mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb ...
+Unpacking mysql-workbench-community (8.0.20-1ubuntu20.04) ...
+Setting up libpcrecpp0v5:amd64 (2:8.39-12ubuntu0.1) ...
+Setting up libzip5:amd64 (1.5.1-0ubuntu1) ...
+Setting up libpython2.7-minimal:amd64 (2.7.18-1~20.04.3) ...
+Setting up libpython2.7-stdlib:amd64 (2.7.18-1~20.04.3) ...
+Setting up libpython2.7:amd64 (2.7.18-1~20.04.3) ...
+Setting up mysql-workbench-community (8.0.20-1ubuntu20.04) ...
+Processing triggers for mime-support (3.64ubuntu1) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Processing triggers for gnome-menus (3.36.0-1ubuntu1) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.14) ...
+Processing triggers for shared-mime-info (1.15-1) ...
+Processing triggers for desktop-file-utils (0.24-1ubuntu3) ...
+botsman@ubuntu2004:~/GB/ControlWork2/Packages$
+

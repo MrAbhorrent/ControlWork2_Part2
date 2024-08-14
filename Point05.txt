@@ -1,0 +1,19 @@
+cat > pets
+cat > pack_animals
+cat pets pack_animals > new_file
+cat new_file 
+mv new_file human_friends
+mkdir data
+ll
+mv human_friends data/
+ll
+ls ./data/
+mkdir Packages
+cd ./Packages/
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+sudo dpkg -i ./mysql-apt-config_0.8.29-1_all.deb
+sudo apt update 
+sudo apt upgrade
+wget http://repo.mysql.com/apt/ubuntu/pool/mysql-tools/m/mysql-workbench-community/mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb
+sudo apt install ./mysql-workbench-community_8.0.20-1ubuntu20.04_amd64.deb
+sudo apt -r mysql-workbench-community

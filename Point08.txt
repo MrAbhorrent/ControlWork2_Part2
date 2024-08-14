@@ -1,0 +1,72 @@
+###############################################################################
+# Создать таблицы с иерархией из диаграммы в БД
+###############################################################################
+#
+
+pavel@h0mew0rk~$
+pavel@h0mew0rk~$ mysql -u root -p
+Enter password 
+Welcome to the MySQL monitor.  Commands end with ; or g.
+Your MySQL connection id is 9
+Server version 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle andor its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation andor its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or 'h' for help. Type 'c' to clear the current input statement.
+
+mysql> USE human_friends;
+Database changed
+
+mysql> CREATE TABLE animals (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, birthday DATE NOT NULL );
+Query OK, 0 rows affected (0,05 sec)
+
+mysql> CREATE TABLE commands (id INT PRIMARY KEY AUTO_INCREMENT, id_animal INT NOT NULL, command VARCHAR(80), FOREIGN KEY (id_animal) REFERENCES animals (id) );
+Query OK, 0 rows affected (0,06 sec)
+
+mysql> CREATE TABLE pets (id INT PRIMARY KEY AUTO_INCREMENT, id_animal INT NOT NULL,FOREIGN KEY (id_animal) REFERENCES animals (id));
+Query OK, 0 rows affected (0,09 sec)
+
+mysql> CREATE TABLE dogs (id INT PRIMARY KEY AUTO_INCREMENT, id_pet INT NOT NULL, FOREIGN KEY (id_pet) REFERENCES pets (id));
+Query OK, 0 rows affected (0,08 sec)
+
+mysql> CREATE TABLE cats (id INT PRIMARY KEY AUTO_INCREMENT, id_pet INT NOT NULL, FOREIGN KEY (id_pet) REFERENCES pets (id));
+Query OK, 0 rows affected (0,06 sec)
+
+mysql> CREATE TABLE hamsters (id INT PRIMARY KEY AUTO_INCREMENT, id_pet INT NOT NULL, FOREIGN KEY (id_pet) REFERENCES pets (id));
+Query OK, 0 rows affected (0,07 sec)
+
+mysql> CREATE TABLE pack_animals (id INT PRIMARY KEY AUTO_INCREMENT, id_animal INT NOT NULL, FOREIGN KEY (id_animal) REFERENCES animals (id));
+Query OK, 0 rows affected (0,07 sec)
+
+mysql> CREATE TABLE horses (id INT PRIMARY KEY AUTO_INCREMENT, id_pack_animal INT NOT NULL, FOREIGN KEY (id_pack_animal) REFERENCES pack_animals (id));
+Query OK, 0 rows affected (0,07 sec)
+
+mysql> CREATE TABLE camels (id INT PRIMARY KEY AUTO_INCREMENT, id_pack_animal INT NOT NULL, FOREIGN KEY (id_pack_animal) REFERENCES pack_animals (id));
+Query OK, 0 rows affected (0,06 sec)
+
+mysql> CREATE TABLE donkeys (id INT PRIMARY KEY AUTO_INCREMENT, id_pack_animal INT NOT NULL, FOREIGN KEY (id_pack_animal) REFERENCES pack_animals (id));
+Query OK, 0 rows affected (0,07 sec)
+
+
+mysql> SHOW TABLES;
++-------------------------+
+| Tables_in_human_friends |
++-------------------------+
+| animals                 |
+| camels                  |
+| cats                    |
+| commands                |
+| dogs                    |
+| donkeys                 |
+| hamsters                |
+| horses                  |
+| pack_animals            |
+| pets                    |
++-------------------------+
+10 rows in set (0,00 sec)
+
+mysql>

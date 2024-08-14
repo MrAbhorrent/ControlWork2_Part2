@@ -1,0 +1,107 @@
+###############################################################################
+# Объединить все таблицы в одну, при этом сохраняя поля, указывающие на
+# прошлую принадлежность к старым таблицам.
+###############################################################################
+#
+
+mysql> CREATE TABLE table_all_animals
+    -> SELECT a.id AS animals_id,
+    -> a.name AS animals_name,
+    -> a.birthday AS animals_birthday,
+cm.id AS commands_id,
+cm.id_animal AS commands_id_animal,
+cm.command AS commands_command,
+p.id AS pets_id,
+p.id_animal AS pets_id_animal,
+pa.id AS pack_animals_id,
+pa.id_animal AS pack_animals_id_animal,
+d.id AS dogs_id,
+d.id_pet AS dogs_id_pet,
+c.id AS cats_id,
+c.id_pet AS cats_id_pet,
+h.id AS hamsters_id,
+h.id_pet AS hamsters_id_pet,
+hr.id AS horses_id,
+hr.id_pack_animal AS horses_id_pack_animal,
+cl.id AS camels_id,
+cl.id_pack_animal AS camels_id_pack_animal,
+dk.id AS donkeys_id,
+dk.id_pack_animal AS donkeys_id_pack_animal
+FROM animals AS a
+LEFT JOIN commands AS cm ON cm.id_animal = a.id
+LEFT JOIN pets AS p ON p.id_animal = a.id
+LEFT JOIN pack_animals AS pa ON pa.id_animal = a.id
+LEFT JOIN dogs AS d ON d.id_pet = p.id
+LEFT JOIN cats AS c ON c.id_pet = p.id
+LEFT JOIN hamsters AS h ON h.id_pet = p.id
+LEFT JOIN horses AS hr ON hr.id_pack_animal = pa.id
+LEFT JOIN camels AS cl ON cl.id_pack_animal = pa.id
+LEFT JOIN donkeys AS dk ON dk.id_pack_animal = pa.id;a.birthday AS animals_birthday,
+    -> cm.id AS commands_id,
+    -> cm.id_animal AS commands_id_animal,
+    -> cm.command AS commands_command,
+    -> p.id AS pets_id,
+    -> p.id_animal AS pets_id_animal,
+    -> pa.id AS pack_animals_id,
+    -> pa.id_animal AS pack_animals_id_animal,
+    -> d.id AS dogs_id,
+    -> d.id_pet AS dogs_id_pet,
+    -> c.id AS cats_id,
+    -> c.id_pet AS cats_id_pet,
+    -> h.id AS hamsters_id,
+    -> h.id_pet AS hamsters_id_pet,
+    -> hr.id AS horses_id,
+    -> hr.id_pack_animal AS horses_id_pack_animal,
+    -> cl.id AS camels_id,
+    -> cl.id_pack_animal AS camels_id_pack_animal,
+    -> dk.id AS donkeys_id,
+    -> dk.id_pack_animal AS donkeys_id_pack_animal
+    -> FROM animals AS a
+    -> LEFT JOIN commands AS cm ON cm.id_animal = a.id
+    -> LEFT JOIN pets AS p ON p.id_animal = a.id
+    -> LEFT JOIN pack_animals AS pa ON pa.id_animal = a.id
+    -> LEFT JOIN dogs AS d ON d.id_pet = p.id
+    -> LEFT JOIN cats AS c ON c.id_pet = p.id
+    -> LEFT JOIN hamsters AS h ON h.id_pet = p.id
+    -> LEFT JOIN horses AS hr ON hr.id_pack_animal = pa.id
+    -> LEFT JOIN camels AS cl ON cl.id_pack_animal = pa.id
+    -> LEFT JOIN donkeys AS dk ON dk.id_pack_animal = pa.id;
+Query OK, 25 rows affected (0,06 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM table_All_animals;
+ERROR 1146 (42S02): Table 'human_friends.table_All_animals' doesn't exist
+mysql> SELECT * FROM table_all_animals;
++------------+------------------+------------------+-------------+--------------------+--------------------+---------+----------------+-----------------+------------------------+---------+-------------+---------+-------------+-------------+-----------------+-----------+-----------------------+-----------+-----------------------+------------+------------------------+
+| animals_id | animals_name     | animals_birthday | commands_id | commands_id_animal | commands_command   | pets_id | pets_id_animal | pack_animals_id | pack_animals_id_animal | dogs_id | dogs_id_pet | cats_id | cats_id_pet | hamsters_id | hamsters_id_pet | horses_id | horses_id_pack_animal | camels_id | camels_id_pack_animal | donkeys_id | donkeys_id_pack_animal |
++------------+------------------+------------------+-------------+--------------------+--------------------+---------+----------------+-----------------+------------------------+---------+-------------+---------+-------------+-------------+-----------------+-----------+-----------------------+-----------+-----------------------+------------+------------------------+
+|          1 | Тигр             | 2020-02-02       |           1 |                  1 | Сидеть             |       1 |              1 |            NULL |                   NULL |       1 |           1 |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|          2 | Амур             | 2021-02-02       |          16 |                  2 | Скакать            |    NULL |           NULL |               1 |                      2 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |         1 |                     1 |      NULL |                  NULL |       NULL |                   NULL |
+|          3 | Томас            | 2022-02-02       |           6 |                  3 | Мяукнуть           |       2 |              3 |            NULL |                   NULL |    NULL |        NULL |       1 |           2 |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|          5 | Оскар            | 2020-01-02       |          11 |                  5 | Крутиться          |       3 |              5 |            NULL |                   NULL |    NULL |        NULL |    NULL |        NULL |           1 |               3 |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|          6 | Рыжик            | 2012-05-06       |          26 |                  6 | Играть             |    NULL |           NULL |               3 |                      6 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |          1 |                      3 |
+|          7 | Барсик           | 2019-02-02       |           2 |                  7 | Лежать             |       4 |              7 |            NULL |                   NULL |       2 |           4 |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|          8 | Мурзик           | 2018-02-02       |          17 |                  8 | Галоп              |    NULL |           NULL |               4 |                      8 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |         2 |                     4 |      NULL |                  NULL |       NULL |                   NULL |
+|          9 | Пушок            | 2017-02-02       |           7 |                  9 | Лазить             |       5 |              9 |            NULL |                   NULL |    NULL |        NULL |       2 |           5 |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         11 | Масяня           | 2015-02-02       |          12 |                 11 | Бежать             |       6 |             11 |            NULL |                   NULL |    NULL |        NULL |    NULL |        NULL |           2 |               6 |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         12 | Плюшка           | 2021-01-01       |          27 |                 12 | Бродить            |    NULL |           NULL |               6 |                     12 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |          2 |                      6 |
+|         13 | Гуппи            | 2022-12-12       |           3 |                 13 | Фас                |       7 |             13 |            NULL |                   NULL |       3 |           7 |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         14 | Шарик            | 2020-04-22       |          18 |                 14 | Тянуть             |    NULL |           NULL |               7 |                     14 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |         3 |                     7 |      NULL |                  NULL |       NULL |                   NULL |
+|         15 | Феликс           | 2022-12-02       |           8 |                 15 | Играть             |       8 |             15 |            NULL |                   NULL |    NULL |        NULL |       3 |           8 |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         17 | Леопольд         | 2012-12-12       |          13 |                 17 | Есть               |       9 |             17 |            NULL |                   NULL |    NULL |        NULL |    NULL |        NULL |           3 |               9 |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         18 | Бася             | 2021-09-13       |          28 |                 18 | Тянуть             |    NULL |           NULL |               9 |                     18 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |          3 |                      9 |
+|         19 | Белка            | 2019-03-19       |           4 |                 19 | Прыгать            |      10 |             19 |            NULL |                   NULL |       4 |          10 |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         20 | Рекс             | 2018-09-03       |          19 |                 20 | Прыгать            |    NULL |           NULL |              10 |                     20 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |         4 |                    10 |      NULL |                  NULL |       NULL |                   NULL |
+|         21 | Рыжик            | 2021-03-01       |           9 |                 21 | Спать              |      11 |             21 |            NULL |                   NULL |    NULL |        NULL |       4 |          11 |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         23 | Симон            | 2021-02-06       |          14 |                 23 | Спать              |      12 |             23 |            NULL |                   NULL |    NULL |        NULL |    NULL |        NULL |           4 |              12 |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         24 | Гарфилд          | 2021-02-07       |          29 |                 24 | Голос              |    NULL |           NULL |              12 |                     24 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |          4 |                     12 |
+|         25 | Лаки             | 2022-02-08       |           5 |                 25 | Голос              |      13 |             25 |            NULL |                   NULL |       5 |          13 |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         26 | Люся             | 2021-02-09       |          20 |                 26 | Ездить             |    NULL |           NULL |              13 |                     26 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |         5 |                    13 |      NULL |                  NULL |       NULL |                   NULL |
+|         27 | Макс             | 2021-02-10       |          10 |                 27 | Охотиться          |      14 |             27 |            NULL |                   NULL |    NULL |        NULL |       5 |          14 |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         29 | Симба            | 2021-02-12       |          15 |                 29 | Копать             |      15 |             29 |            NULL |                   NULL |    NULL |        NULL |    NULL |        NULL |           5 |              15 |      NULL |                  NULL |      NULL |                  NULL |       NULL |                   NULL |
+|         30 | Басик            | 2021-02-13       |          30 |                 30 | Спать              |    NULL |           NULL |              15 |                     30 |    NULL |        NULL |    NULL |        NULL |        NULL |            NULL |      NULL |                  NULL |      NULL |                  NULL |          5 |                     15 |
++------------+------------------+------------------+-------------+--------------------+--------------------+---------+----------------+-----------------+------------------------+---------+-------------+---------+-------------+-------------+-----------------+-----------+-----------------------+-----------+-----------------------+------------+------------------------+
+25 rows in set (0,00 sec)
+
+mysql>
+

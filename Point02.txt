@@ -1,0 +1,30 @@
+###############################################################################
+# Создать директорию, переместить файл туда.
+###############################################################################
+#
+
+# Создадим директорию
+botsman@ubuntu2004:~/GB/ControlWork2$ mkdir data
+botsman@ubuntu2004:~/GB/ControlWork2$ ll
+total 24
+drwxrwxr-x 3 botsman botsman 4096 фев 10 14:19 ./
+drwxrwxr-x 4 botsman botsman 4096 фев 10 13:50 ../
+drwxrwxr-x 2 botsman botsman 4096 фев 10 14:19 data/
+-rw-rw-r-- 1 botsman botsman   72 фев 10 14:13 human_friends
+-rw-rw-r-- 1 botsman botsman   37 фев 10 14:12 pack_animals
+-rw-rw-r-- 1 botsman botsman   35 фев 10 14:11 pets
+botsman@ubuntu2004:~/GB/ControlWork2$
+
+
+# Переместим файл
+botsman@ubuntu2004:~/GB/ControlWork2$ mv human_friends data/
+botsman@ubuntu2004:~/GB/ControlWork2$ ll
+total 20
+drwxrwxr-x 3 botsman botsman 4096 фев 10 14:20 ./
+drwxrwxr-x 4 botsman botsman 4096 фев 10 13:50 ../
+drwxrwxr-x 2 botsman botsman 4096 фев 10 14:20 data/
+-rw-rw-r-- 1 botsman botsman   37 фев 10 14:12 pack_animals
+-rw-rw-r-- 1 botsman botsman   35 фев 10 14:11 pets
+botsman@ubuntu2004:~/GB/ControlWork2$ ls ./data/
+human_friends
+botsman@ubuntu2004:~/GB/ControlWork2$
