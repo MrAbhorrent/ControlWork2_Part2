@@ -12,8 +12,10 @@ public class MainController implements Controller, AutoCloseable {
     private final ConsoleView view;
 
 
-    public MainController(List<Pet> pets) {
+    public MainController(CounterResource counterResource, List<Pet> pets, ConsoleView view) {
+        this.counterResource = counterResource;
         this.pets = pets;
+        this.view = view;
     }
 
     @Override
@@ -53,6 +55,16 @@ public class MainController implements Controller, AutoCloseable {
 
     @Override
     public void viewAnimalInfo(int index) {
+
+    }
+
+    @Override
+    public void teachAnimalNewCommand() {
+
+    }
+
+    @Override
+    public void viewAnimalInfo() {
 
     }
 
