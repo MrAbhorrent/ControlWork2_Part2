@@ -1,18 +1,25 @@
 package com.education.exam2.Model;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Dog extends Pet{
-
-    private final String makeVoice = "Гав-гав";
 
     public Dog(String nickName, Date date) {
         super(nickName, date);
     }
 
+    public Dog(String nickName) {
+        this(nickName, null);
+    }
+
     @Override
     public void performAction() {
+        String makeVoice = "Гав-гав";
         System.out.println(makeVoice);
+    }
+
+    @Override
+    public String getType() {
+        return "Dog";
     }
 }

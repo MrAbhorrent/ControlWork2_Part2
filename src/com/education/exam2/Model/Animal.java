@@ -2,9 +2,9 @@ package com.education.exam2.Model;
 
 import java.util.Date;
 
-abstract class Animal {
+public abstract class Animal {
     protected String nickName;
-    private Date birthday;
+    private final Date birthday;
 
 
     public Animal(String nickName) {
@@ -30,6 +30,7 @@ abstract class Animal {
     }
 
     public abstract void performAction();
+    public abstract String getType();
 
     @Override
     public String toString() {
