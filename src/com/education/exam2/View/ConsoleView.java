@@ -7,8 +7,8 @@ public class ConsoleView implements View {
 
     private final Scanner scanner;
 
-    public ConsoleView(Scanner scanner) {
-        this.scanner = scanner;
+    public ConsoleView() {
+        this.scanner = new Scanner(System.in);
     }
 
     public void displayMenu() {
@@ -47,6 +47,11 @@ public class ConsoleView implements View {
     public void showCommands(String name, List<String> commands) {
         System.out.printf("Команды для %s: \n", name);
         displayList(commands);
+    }
+
+    public void showAnimals(List<String> listAnimals) {
+        System.out.println("Список животных:");
+        displayList(listAnimals);
     }
 
     public void showAnimalAdded(String name) {

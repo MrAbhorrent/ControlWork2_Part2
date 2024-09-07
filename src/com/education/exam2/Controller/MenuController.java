@@ -26,6 +26,10 @@ public class MenuController {
                     view.showAnimalAdded(name);
                     break;
                 case 2:
+                    List<String> list = registryService.getListAnimal();
+                    view.showAnimals(list);
+                    break;
+                case 3:
                     name = view.getAnimalName();
                     List<String> commands = registryService.getCommands(name);
                     if (commands != null) {
@@ -34,7 +38,7 @@ public class MenuController {
                         view.showAnimalNotFound();
                     }
                     break;
-                case 3:
+                case 4:
                     name = view.getAnimalName();
                     String command = view.getNewCommand();
                     if (registryService.trainAnimal(name, command)) {
@@ -43,7 +47,7 @@ public class MenuController {
                         view.showAnimalNotFound();
                     }
                     break;
-                case 4:
+                case 5:
                     view.showExitMessage();
                     return;
                 default:

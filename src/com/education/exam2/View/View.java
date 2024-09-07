@@ -1,6 +1,6 @@
 package com.education.exam2.View;
 
-import java.util.List;
+import java.util.*;
 
 public interface View {
 
@@ -9,10 +9,11 @@ public interface View {
     String getAnimalType();
     String getAnimalName();
     String getNewCommand();
+    void showCommandAdded(String name, String command);
     void showCommands(String name, List<String> commands);
+    void showAnimals(List<String> listAnimals);
     void showAnimalAdded(String name);
     void showAnimalNotFound();
     void showInvalidChoice();
     void showExitMessage();
-
 }
