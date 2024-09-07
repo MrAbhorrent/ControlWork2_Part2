@@ -3,13 +3,14 @@ package com.education.exam2.Controller;
 import com.education.exam2.Model.Animal;
 import com.education.exam2.Model.Pet;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class RegistryService {
 
-    private final String strNotFoundAnimal = "Животное не найдено.";
-    private Map<String, Animal> registry = new HashMap<>();
+    private final Map<String, Animal> registry = new HashMap<>();
 
     public void addAnimal(String type, String name) {
         try (CounterResource counter = new CounterResource()) {
@@ -22,22 +23,26 @@ public class RegistryService {
         }
     }
 
-    public void showCommands(String name) {
+    public List<String> getCommands(String name) {
         Pet pet = (Pet) registry.get(name);
-        if (pet != null) {
-            System.out.println("Список команд для " + name + ": " + pet.getCommandsList());
-        } else {
-            System.out.println(strNotFoundAnimal);
-        }
+        return pet != null ? pet.getCommandsList() : null;
     }
 
-    public void trainAnimal(String name, String command) {
+    public List<String> getListAnimal() {
+        Set<String> list = registry.keySet();
+        return (List<String>) list;
+    }
+
+    public boolean trainAnimal(String name, String command) {
         Pet pet = (Pet) registry.get(name);
         if (pet != null) {
             pet.learnCommand(command);
             System.out.printf("Для животного %s добавлена команда: %s\n", name, command);
+            return true;
         } else {
+            String strNotFoundAnimal = "Животное не найдено.";
             System.out.println(strNotFoundAnimal);
+            return false;
         }
     }
 }

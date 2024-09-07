@@ -5,7 +5,11 @@ import java.util.Scanner;
 
 public class ConsoleView implements View {
 
-    //final String;
+    private final Scanner scanner;
+
+    public ConsoleView() {
+        this.scanner = new Scanner(System.in);
+    }
 
     public void displayMenu() {
         System.out.println("\n╔═════════════════════════════════════════════════════════════════════════╗");
@@ -19,33 +23,60 @@ public class ConsoleView implements View {
         System.out.println("===========================================================================");
     }
 
-    public String getUserInput() {
-        Scanner scanner = new Scanner(System.in);
+    public int getUserChoice() {
+        System.out.print("Выберите пункт меню: ");
+        return scanner.nextInt();
+    }
+
+    public String getAnimalType() {
+        System.out.print("Введите тип животного (dog/cat/hamster): ");
+        scanner.nextLine();  // ??
         return scanner.nextLine();
     }
 
-    public String input() {
-        System.out.print("> ");
-        try {
-            return System.console().readLine();
-        } catch (Exception e) {
-            return "";
-        }
+    public String getAnimalName() {
+        System.out.print("Введите имя животного: ");
+        return scanner.nextLine();
     }
 
-    public int askUserForChoice() {
-        System.out.println("Choose an option:");
-        System.out.println("0. Завести новое животное");
-        System.out.println("1. Просмотреть информацию по животному");
-        System.out.println("2. Обучить животное новой команде");
-        System.out.println("3. Назад");
-        return Integer.parseInt(input());
+    public String getNewCommand() {
+        System.out.print("Введите новую команду: ");
+        return scanner.nextLine();
+    }
+
+    public void showCommands(String name, List<String> commands) {
+        System.out.printf("Команды для %s: \n", name);
+        displayList(commands);
+    }
+
+    public void showAnimals(List<String> listAnimals) {
+        System.out.println("Список животных:");
+        displayList(listAnimals);
+    }
+
+    public void showAnimalAdded(String name) {
+        System.out.println("Животное добавлено: " + name);
+    }
+
+    public void showCommandAdded(String name, String command) {
+        System.out.println("Команда добавлена для " + name + ": " + command);
+    }
+
+    public void showAnimalNotFound() {
+        System.out.println("Животное не найдено.");
+    }
+
+    public void showInvalidChoice() {
+        System.out.println("Неверный выбор. Попробуйте снова.");
+    }
+
+    public void showExitMessage() {
+        System.out.println("Выход из программы.");
     }
 
     public void displayList(List<String> stringList) {
         int counter = 0;
         for (String row: stringList) {
-            //counter++;
             System.out.printf("\t%d - %s\n", counter++, row);
         }
     }
